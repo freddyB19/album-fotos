@@ -1,5 +1,5 @@
 asgiref==3.5.2
-backports.zoneinfo==0.2.1
+
 Brotli==1.0.9
 certifi==2023.5.7
 charset-normalizer==3.1.0
@@ -21,4 +21,4 @@ sqlparse==0.4.3
 stone==3.3.1
 tzdata==2022.5
 urllib3==2.0.3
-whitenoise==6.5.0
+
