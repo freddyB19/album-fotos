@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.urls import path, re_path, include
 from django.conf.urls import handler404
 
-from core.settings import local
+from album.settings import local
 
 from applications.home import views
 
