@@ -1,0 +1,41 @@
+{% extends "../includes/base_errors.html" %}
+
+{% load static %}
+
+{% block style %}
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">  
+	<link rel="stylesheet" href="{% static 'css/error_404.css' %}"> 
+{% endblock style %}
+
+{% block title %}
+	¡Uppsss! | 404
+{% endblock title %}
+
+{% block content %}
+
+<section class="page_404">
+	<div class="container">
+		<div class="row">	
+			<div class="col-sm-12 ">
+				<div class="col-sm-12 col-sm-offset-1  text-center">
+					<div class="four_zero_four_bg">
+						<h1 class="text-center ">404</h1>
+					</div>
+				
+					<div class="contant_box_404 text-center">
+						<h3 class="h2">
+							Parece que estás perdido
+						</h3>
+						
+						<p>¡La página que busca no está disponible!</p>
+						
+						<a href=" {% url 'home:index' %} " class="link_404">Ir a inicio</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+	
+{% endblock content %}
+

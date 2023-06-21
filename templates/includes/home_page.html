@@ -1,0 +1,40 @@
+{% if 'list_images_home_page' %}
+		<div class="container px-4 py-5" id="custom-cards">
+		    <h2 class="pb-2 border-bottom">Galeria de fotos</h2>
+
+		    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+
+		      {% for card in  list_images_home_page %}
+		      	<div class="col">
+			        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('{{card.photo}}'); background-position: center;
+            background-size: cover;">
+			          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+			            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+			            	{{card.title | truncatechars:25}}
+			        	</h2>
+			        	<div class="py-5"></div>
+
+			            <ul class="d-flex list-unstyled mt-auto">
+			              <li class="me-auto">
+      						<span class="navbar-brand d-flex align-items-center">
+      							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        						<strong>Album</strong>
+      						</span>
+			              </li>
+
+			              <li class="d-flex align-items-center">
+			                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
+			                <small> {{card.created}} </small>
+			              </li>
+
+
+			              
+			            </ul>
+			          </div>
+			        </div>
+			      </div>
+		      	
+		      {% endfor %}
+		    </div>
+	  </div>
+{% endif %}

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}"> 
+{% endblock style %}
+
+
+{% block title %}
+	{{request.user.first_name}}| Configuraciones
+{% endblock title %}
+
+{% block content %}
+	
+	<div class="container">
+		<h2> Perfil </h2>
+		
+		{% include "../includes/messages.html" %}
+
+	<div class="py-3"></div>
+
+	<div class="card mb-3" >
+	  <img src="{{request.user.photo.url}}" class="card-img-top" alt="..." style="width: 100%; height: 350px; object-fit: cover; object-position: top;">
+	  <div class="card-body">
+	    <h5 class="card-title">{{image.title}}</h5>
+	    <p class="card-text">
+	    	<p>
+				<strong style="font-style: bold;">Nombre:</strong> {{request.user.first_name}}<br>
+				<strong style="font-style: bold;">Apellido:</strong> {{request.user.last_name}}<br>
+				<strong style="font-style: bold;">Email:</strong> {{request.user.email}}
+			</p>
+	    </p>
+	  </div>
+	</div>
+
+
+		<div class="row">
+		<div class="col-sm-4">
+			<div class="card w-100" style="width: 18rem;">
+			  <div class="card-header">
+			    Categorias
+			  </div>
+			  <ul class="list-group list-group-flush">
+			    <li class="list-group-item"> <strong>Total de categorias creadas:</strong> {{total_categorys}}</li>
+
+			  </ul>
+			</div>
+		</div>
+		
+		<div class="col-sm-4">
+			<div class="card w-100" style="width: 18rem;">
+			  <div class="card-header">
+			    Fotos
+			  </div>
+				  <ul class="list-group list-group-flush">
+				    <li class="list-group-item"> <strong>Total de fotografias guardadas:</strong> {{photo_user}}</li>
+
+				  </ul>
+			</div>
+		</div>
+		
+	</div>
+
+	<div class="py-3"></div>
+
+	<div class="container text-center">
+		<div class="row justify-content-evenly">
+		    <div class="col-4">
+		      <a href="{% url 'user:update-email-user' pk=request.user.pk %}"  class="btn btn-outline-primary">
+				Actualizar email
+				</a>
+		    </div>
+
+		    <div class="col-4">
+		      <a href="{% url 'user:update-password-user' pk=request.user.pk %} "  class="btn btn-outline-primary">Actualizar Contraseña</a>
+		    </div>
+		 </div>
+
+	</div>
+	{% if categorys_deactive %}
+		{% include "../includes/categorys_deactivate.html" %}
+	{% endif %}
+	
+	<div class="py-3"></div>
+
+	<div class="modal modal-signin position-static d-block bg-light py-5" tabindex="-1" role="dialog" id="modalSignin">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content rounded-5 shadow">
+		      <div class="modal-header text-center p-5 pb-4 border-bottom-0">
+		        <!-- <h5 class="modal-title">Modal title</h5> -->
+		        <h2 class="fw-bold mb-0 mx-auto">¿Actualizar foto de perfil?</h2>
+		      </div>
+
+		      <div class="modal-body p-5 pt-0">
+		        <form method="POST" enctype="multipart/form-data" action="{% url 'user:update-photo-user' pk=request.user.pk %}"> {% csrf_token %}
+		        	<div class="input-group mb-3">
+		          		<span class="input-group-text" id="basic-addon3">
+		          			{{form_photo.photo.label_tag}}
+		          		</span>
+		          		{{form_photo.photo}}
+
+		          		{% if form_photo.photo.errors %}
+				        	<div class="invalid-feedback">
+				              {{form_photo.photo.errors}}
+				            </div>
+			        	{% endif %}
+		        	</div>
+		        	
+
+		          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Guardar</button>
+		          
+		        </form>
+		      </div>
+		    </div>
+		  </div>
+	</div>
+
+		
+
+		
+	</div>
+	
+
+
+	
+{% endblock content %}
+
+
+		

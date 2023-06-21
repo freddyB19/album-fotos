@@ -1,0 +1,32 @@
+<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+	<li>
+    <a href="{% url 'home:index' %}" class="nav-link px-2 {% if request.resolver_match.url_name == 'index' %}text-secondary{% else %}text-white{% endif %}">
+      Galeria
+    </a>
+  </li>
+  
+  {% if request.resolver_match.url_name != 'index' %}
+  <li>
+  	<a href="{% url 'home:list-categorys' %}" class="nav-link px-2 {% if request.resolver_match.url_name == 'list-categorys'  %}text-secondary{% else %}text-white{% endif %}">
+  		Categorias
+  	</a>
+  </li>
+  {% endif %}
+  <li>
+  	<a href="{% url 'home:add-category' pk=request.user.id %}" class="nav-link px-2 {% if request.resolver_match.url_name == 'add-category'  %}text-secondary{% else %}text-white{% endif %}">
+  		Nueva Categoria
+  	</a>
+  </li>
+  <li>
+  	<a href="{% url 'home:add-photo' %}" class="nav-link px-2 {% if request.resolver_match.url_name == 'add-photo'  %}text-secondary{% else %}text-white{% endif %}">
+  		Nueva Foto
+  	</a>
+  </li>
+  <li>
+  	<a href="{% url 'user:settings-user'  pk=request.user.pk %}" class="nav-link px-2 {% if request.resolver_match.url_name == 'settings-user'  %}text-secondary{% else %}text-white{% endif %}">
+  		Configuraciones
+  	</a>
+  </li>
+
+</ul>
+

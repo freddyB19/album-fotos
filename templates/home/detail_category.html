@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}  
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}"> 
+{% endblock style %}
+
+{% block title %}
+	Detalle | Categoria
+{% endblock title %}
+
+
+{% block content %}
+	<div class="container">
+		<h1 class="pb-2 border-bottom">{{category_detail.name}}</h1>
+		
+
+		<div class="container px-3 py-2 bg-light" id="custom-cards">
+
+			<div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+
+		      {% for image in categorys %}
+		      	<a href="{% url 'home:detail-photo' pk=image.pk %}"style="text-decoration: none;">
+		      		<div class="col">
+				        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('{{image.photo.url}}'); background-position: center;
+            background-size: cover;">
+				          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+				            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+				            	{{image.title | truncatechars:25}}
+				        	</h2>
+				        	<div class="py-5"></div>
+
+				            <ul class="d-flex list-unstyled mt-auto">
+
+				              <li class="d-flex align-items-center">
+				                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
+				                <small> {{image.created}}  </small>
+				              </li>
+
+				            </ul>
+				          </div>
+				        </div>
+				      </div>
+		      	</a>
+		      	
+		      	
+		      {% endfor %}
+			</div>
+		</div>
+
+
+	<p class="pt-3">
+		Total de fotos: {{total_photo}}
+	</p>
+
+	<table class="table my-5">
+	  <thead class="table-light">
+	    <tr>
+	      <th scope="col" colspan="3">Categoría</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <td>
+	    	<a href="{% url 'home:update-category-name' pk=category_detail.pk %}" class="btn btn-outline-primary"> 	Cambiar nombre de categoría
+				</a>
+	    </td>
+	    {% if  category_detail.active %}
+	    	<td>
+	        <form method="POST" action="{% url 'home:update-status-name' pk=category_detail.pk %}">{% csrf_token %}
+	          <button class="btn btn-outline-info" type="submit">Ocultar categoría</button>
+	        </form>
+	     </td>
+	    	
+	    {% endif %}
+	    
+	    <td>
+	    	<a href="{% url 'home:delete-category' pk=category_detail.pk %}" class="btn btn-outline-danger"> Eliminar categoría
+				</a> 
+	    </td>
+	      
+	  </tbody>
+	</table>
+
+	<div class="mb-3"></div>
+	{% if is_paginated %}
+		<nav aria-label="Another pagination example" class="mx-auto pt-3">
+      <ul class="pagination pagination-lg flex-wrap">
+      	{% if page_obj.has_previous %}
+	        <li class="page-item">
+	          <a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a>
+	        </li>
+        {% endif %}
+
+        <li class="page-item active" aria-current="page">
+          <a href="?page={{page_obj.number}}" class="page-link">
+			{{page_obj.number}}
+			</a>
+        </li>
+        
+        {% if page_obj.has_next %}
+	        <li class="page-item">
+	          <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+	        </li>
+        {% endif %}
+      </ul>
+    </nav>
+
+	{% endif %}
+
+
+
+
+
+	</div>
+	
+
+
+	
+		
+	
+{% endblock content %}

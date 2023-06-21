@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}  
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/features.css' %}">
+	<link rel="stylesheet" href="{% static 'css/tarjeta_presentacion.css' %}">
+
+{% endblock style %}
+
+
+{% block title %}
+	{% if request.user.is_authenticated %}
+		Inicio | {{request.user.first_name}}		
+	{% else %}
+		Inicio |
+	{% endif%}
+{% endblock title %}
+
+{% block content %}
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+ <symbol id="calendar3" viewBox="0 0 16 16">
+    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+  </symbol>
+
+</svg>
+
+<main class="container">
+	{% if request.user.is_authenticated %}
+	<div class="py-3"></div>
+	{% include "../includes/messages.html" %}
+
+	<div class="py-3"></div>
+		
+		{% if list_images %}
+		<div class="row g-5">
+				<div class="col-md-8">
+				  <div class="row mb-2">
+				  	{% for image in  list_images %}
+				   <div class="col-md-6">
+				      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+				        <div class="col p-4 d-flex flex-column position-static">
+				          <strong class="d-inline-block mb-2 text-primary">{{image.image_category.name}}</strong>
+				          <h3 class="mb-0">{{image.title | truncatechars:25}}</h3>
+				          <div class="mb-1 text-muted">{{image.created}}</div>
+				          <p class="card-text mb-auto"> {{image.description| truncatechars:85}}</p>
+				          <a href="{% url 'home:detail-photo' pk=image.pk %}" class="stretched-link">Ver más</a>
+				        </div>
+				        <div class="col-auto d-none d-lg-block">
+				        	<img src="{{image.photo.url}}" class="bd-placeholder-img w-100" alt="">
+				        </div>
+				      </div>
+				    </div>
+				    {% endfor %}
+				  </div>
+				</div>
+
+				<div class="col-md-4">
+			      <div class="position-sticky" style="top: 2rem;">
+			        <div class="p-4 mb-3 bg-light rounded">
+			          <h4 class="fst-italic">
+			          	<a href="{% url 'home:list-categorys' %}"> Categorías </a>
+			          </h4>
+
+			          <p class="mb-0">Accede a tus listas de categorías creadas.</p>
+			        </div>
+
+			      <div class="p-4">
+			         <h4 class="fst-italic">Ultimas agregadas</h4>
+			         <ol class="list-unstyled mb-0">
+			         	{% for image in  last_images %}
+			         		<li><a href="{% url 'home:detail-photo' pk=image.pk %}">{{image.created}}</a></li>
+			         	{% endfor %}
+			            
+			          </ol>
+			      </div>
+			      {% if categorys_deactive %}
+			      	<div class="p-4">
+				         <h4 class="fst-italic">Categorías ocultas</h4>
+				         <ol class="list-unstyled mb-0">
+				         	{% for category in  categorys_deactive %}
+				         		<li><a href="{% url 'home:detail-categorys' pk=category.pk slug=category.url%}">{{category}}</a></li>
+				         	{% endfor %}
+				            
+				          </ol>
+			      	</div>
+			      {% endif %}
+			      
+
+			      </div>
+    			</div>
+		  </div>
+			
+
+
+
+		{% else %}
+			<h2 class="pb-2 border-bottom">¡Galeria de fotos vacía!</h2>
+				
+		{% endif %}
+	
+
+	{% else %}
+
+
+	{% include "../includes/home_page.html" %}
+	
+	
+	{% endif%}
+
+
+
+</main>	
+{% endblock content %}
+
+
+{% block script %}
+    <script src=" {% static 'js/bootstrap.bundle.min.js' %} "></script>
+{% endblock script %}

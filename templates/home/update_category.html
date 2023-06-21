@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Categoria | {{name}}
+{% endblock title %}
+
+
+{% block content %}
+	<div class="container">
+		<div class="modal modal-signin position-static d-block bg-light py-5" tabindex="-1" role="dialog" id="modalSignin">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+      <div class="modal-header text-center p-5 pb-4 border-bottom-0">
+        <!-- <h5 class="modal-title">Modal title</h5> -->
+        <h2 class="fw-bold mb-0 mx-auto">¿Nuevo nombre a la categoria?</h2>
+
+      </div>
+
+
+      <div class="modal-body p-5 pt-0">
+      	 
+        <form method="POST"> {% csrf_token %}
+        	{% if form.errors %}
+
+        		<div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert">
+        			<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#info-fill"/></svg>
+        			<div>
+        				{{ form.non_field_errors }}
+        			</div>	
+        			<button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>		
+        		</div>
+        		
+        	{% endif %}
+        	<div class="form-floating mb-3">
+	        	{{form.name}}
+	        	{{form.name.label_tag}}
+
+	        	{% if form.name.errors %}
+		        	<div class="invalid-feedback">
+		              {{form.name.errors}}
+		            </div>
+	        	{% endif %}
+        	</div>
+
+          <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Guardar</button>
+          <p class="pt-3">
+          	<strong>Actual nombre:</strong> <small>{{name}}</small>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+	</div>
+{% endblock content %}

@@ -1,0 +1,20 @@
+<table class="table my-5">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">Categoría</th>
+      <th scope="col">¿Activar?</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for category in  categorys_deactive%}
+    <tr>
+      <td>{{category}}</td>
+      <td>
+        <form method="POST" action="{% url 'home:update-status-name' pk=category.pk %}">{% csrf_token %}
+          <button class="btn btn-success" type="submit">Activar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

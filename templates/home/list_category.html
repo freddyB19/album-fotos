@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load  static %}
+
+{% block style %}  
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}"> 
+{% endblock style %}
+
+
+{% block title %}
+	Categorys | {{request.user.first_name}}
+{% endblock title %}
+
+{% block content %}
+	<div class="container">
+		<h2> Categorias </h2>
+		
+		<div class="py-3"></div>
+		{% include "../includes/messages.html" %}
+		
+		<div class="row  row-cols-1 row-cols-md-2 g-4">
+		{% for category in categorys %}
+			<div class="col my-3">
+				<div class="card">
+					<img src="{{category.image_category_list.first.photo.url}}" class="bd-placeholder-img card-img-top w-100">
+
+	              <div class="card-body">
+	                <h5 class="card-title">{{category.name}}</h5>
+	                <div class="mb-1 text-muted">{{category.created}}</div>
+	                <a href="{% url 'home:detail-categorys' slug=category.url pk=category.pk %}" class="btn btn-primary">Ver categoría</a>
+	              </div>
+	            </div>
+			</div>
+        {% endfor %}
+        </div>
+
+	</div>
+	
+
+
+
+
+{% endblock content %}
+
+
+<div class="card">
+              <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
+
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>

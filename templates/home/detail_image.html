@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}  
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}"> 
+{% endblock style %}
+
+
+{% block title %}
+	Foto | {{object.title}}
+{% endblock title %}
+
+
+{% block content %}
+	<div class="container">
+		<div class="py-3"></div>
+		{% include "../includes/messages.html" %}
+	
+	<div class="card mb-3" >
+	  <img src="{{image.photo.url}}" class="card-img-top" alt="..." style="width: 100%; height: 350px; object-fit: cover; object-position: top;">
+	  <div class="card-body">
+	    <h5 class="card-title">{{image.title}}</h5>
+	    <p class="card-text">
+	    	{% if  image.description %}
+				{{image.description}}
+			{% else %}
+				Sin descripción.
+			{% endif %}
+	    </p>
+	    <p class="card-text"><small class="text-body-secondary">{{image.created}} </small></p>
+	  </div>
+	</div>
+
+	
+	<small class="py-3"> 
+		<a href=" {% url 'home:delete-photo' pk=image.id %}" class="btn btn-outline-danger">¿Quieres borrar está foto?</a>  
+	</small>
+
+	<div class="py-3"></div>
+	{% if form_detail %}
+	<div class="modal-body p-5 pt-0">
+		<div class="modal-header text-center p-5 pb-4 border-bottom-0">
+        <!-- <h5 class="modal-title">Modal title</h5> -->
+        <h2 class="fw-bold mb-0 mx-auto">Actualizar datos de la foto</h2>
+      </div>
+		<form method="POST" action="{% url 'home:update-photo' pk=image.pk %}"> {% csrf_token %}
+			<div class="mb-3"></div>
+			<div class="form-floating mb-3">
+	        	{{form_detail.title}}
+	        	{{form_detail.title.label_tag}}
+
+	        	{% if form_detail.title.errors %}
+		        	<div class="invalid-feedback">
+		              {{form_detail.title.errors}}
+		            </div>
+	        	{% endif %}
+	        </div>
+
+	        <div class="input-group">
+	    		<label class="input-group-text" for="{{form_detail.description.id_for_label}}">
+	    			Descripción
+	    		</label>
+	    		
+	    		{{form_detail.description}}
+
+	    		{% if form_detail.description.errors %}
+		        	<div class="invalid-feedback">
+		              {{form_detail.description.errors}}
+		            </div>
+	        	{% endif %}
+	        </div>
+
+	        <div class="mb-3"></div>
+
+	        <button type="submit" class="w-100  mb-2 btn btn-lg rounded-4 btn-primary">
+	        	Actualizar
+	        </button>
+			
+		</form>
+	</div>
+
+	
+		
+	{% endif %}
+
+		
+	</div>
+	
+
+
+
+{% endblock content %}

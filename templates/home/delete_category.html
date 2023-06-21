@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}  
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}"> 
+{% endblock style %}
+
+{% block title %}
+	Nueva Categoria
+{% endblock title %}
+
+{% block content %}
+	<div class="container">
+		
+		<h3 class="my-4 text-center"> ¿Desea eliminar la categoria? </h3>
+		
+		<div class="modal modal-signin position-static d-block  py-3" tabindex="-1" role="dialog" id="modalSignin">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content rounded-5 shadow">
+		      <div class="modal-header text-center p-5 pb-4 border-bottom-0">
+		        <!-- <h5 class="modal-title">Modal title</h5> -->
+		        <h1 class="fw-bold mb-0 fs-2">
+		        	<b> ' {{category.name}}  ' </b>. Será eliminada 
+		        </h1>
+		      </div>
+
+		      <div class="modal-body p-5 pt-0">
+		        <form method="POST" action="{% url 'home:delete-category' pk=category.pk  %}"> {% csrf_token %}
+		        	<button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Eliminar</button>
+		          	<small class="text-body-secondary">Presiona el boton para continar con el proceso.</small>
+
+		          <hr class="my-4">
+		         
+		          
+		        </form>
+		         <a href="{% url 'home:index' %}"> Volver a inicio </a>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+	</div>
+
+
+{% endblock content %}
+
+

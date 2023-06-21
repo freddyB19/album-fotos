@@ -1,0 +1,48 @@
+
+{% load static %}
+
+{% block style %}  
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> 
+{% endblock style %}
+
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex me-auto flex-wrap align-items-center justify-content-center justify-content-lg-start bg-dark text-white">
+      	<div class="bg-dark navbar-dark me-lg-auto">
+      		  	<a href="{% url 'home:index' %}" class="navbar-brand d-flex align-items-center bg-dark text-white">
+		        		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+		        		<strong>Album</strong>
+      				</a>
+
+      	</div>
+      	
+      	{% if request.user.is_authenticated %}
+						{% include "./nav.html" %}
+				{% endif %}	
+
+        <div class="text-end">
+        	<ul class="nav">
+        	{% if request.user.is_authenticated %}
+        		<li class="nav-item">
+        			<a href="{% url 'user:logout' %}" class="btn btn-outline-light me-2">Salir</a>
+        		</li>
+        	{% else %}
+        		<li class="nav-item"><a href="{% url 'user:login' %}" class="btn btn-outline-light me-2">Login</a></li>
+        		
+        		{% if  request.resolver_match.url_name != 'create_user' %}
+        			<li class="nav-item"><a href="{% url 'user:create_user' %}" class="btn btn-warning">Nuevo Usuario</a></li>
+        		{% endif %}
+					{% endif %}
+					</ul>	
+        </div>
+
+      </div>
+    </div>
+</header>
+
+
+
+
+
+
+
