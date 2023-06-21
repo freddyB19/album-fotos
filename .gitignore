@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-local.py
+
 
 *.sqlite3
 migrations/
